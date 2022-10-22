@@ -24,6 +24,37 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
           ),
         ),
       ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          Text(
+            "Question",
+            style: TextStyle(
+              color: foregroundColor,
+              fontSize: 30,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Container(
+            width: double.infinity,
+          )
+        ]),
+      ),
+      bottomNavigationBar: InkWell(
+        onTap: () {},
+        child: Container(
+          height: 60,
+          color: foregroundColor,
+          alignment: Alignment.center,
+          child: Text(
+            "Next Question",
+            style: TextStyle(
+                color: backgroundColor,
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
     );
   }
 }
