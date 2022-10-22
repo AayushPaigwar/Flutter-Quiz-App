@@ -13,33 +13,47 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
+
+      //Heading of the appBar
       appBar: AppBar(
         centerTitle: true,
         iconTheme: IconThemeData(color: backgroundColor),
         backgroundColor: foregroundColor,
         title: Text(
-          "Play Quiz",
+          "Question below",
           style: TextStyle(
             color: backgroundColor,
           ),
         ),
       ),
+
+      //Question 1
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(children: [
-          Text(
-            "Question",
-            style: TextStyle(
-              color: foregroundColor,
-              fontSize: 30,
-              fontWeight: FontWeight.w500,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Question",
+              style: TextStyle(
+                color: foregroundColor,
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
+
+          //Options of questions
           Container(
-            width: double.infinity,
+            width: 50,
+            height: 50,
+            decoration:
+                BoxDecoration(border: Border.all(color: foregroundColor)),
           )
         ]),
       ),
+
+      // Next question Button
       bottomNavigationBar: InkWell(
         onTap: () {},
         child: Container(
