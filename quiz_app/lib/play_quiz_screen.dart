@@ -8,7 +8,6 @@ class PlayQuizScreen extends StatefulWidget {
   State<PlayQuizScreen> createState() => _PlayQuizScreenState();
 }
 
-//Test
 class _PlayQuizScreenState extends State<PlayQuizScreen> {
   @override
   Widget build(BuildContext context) {
