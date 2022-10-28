@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:quiz_app/const.dart';
+import 'package:quiz_app/quiz_question.dart';
 
 class PlayQuizScreen extends StatefulWidget {
   const PlayQuizScreen({Key? key}) : super(key: key);
@@ -9,6 +10,12 @@ class PlayQuizScreen extends StatefulWidget {
 }
 
 class _PlayQuizScreenState extends State<PlayQuizScreen> {
+  //To keep the selected answer hhighlighted
+  bool isAnswerLocked = false;
+
+  //To store the selected answers, correct answer etc
+  int currentIndex = 0, correctAnswers = 0, wrongAnswers = 0;
+  String correctAnswer = " ", selectedAnswer = " ";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,20 +24,22 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
       //Heading of the appBar
       appBar: AppBar(
         centerTitle: true,
-        iconTheme: IconThemeData(color: backgroundColor),
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: foregroundColor,
         title: Text(
           "Question below",
           style: TextStyle(
-            color: backgroundColor,
+            color: Colors.white,
           ),
         ),
       ),
 
       //Question
       body: PageView.builder(
-          itemCount: 10,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: quizQuestion.length,
           itemBuilder: (context, index) {
+            QuizQuestionModel model = quizQuestion[index];
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(children: [
@@ -38,12 +47,12 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "1.What is the Capital of Maharashtra?",
+                    model.question,
                     style: TextStyle(
-                        color: foregroundColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        fontStyle: FontStyle.italic),
+                      color: Colors.white,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -53,24 +62,37 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
                 //Options of questions
                 Column(
                   children: List.generate(
-                      4,
+                      model.options.length,
                       (index) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                // Set State used to get instant change from the user input
+
+                                setState(() {
+                                  isAnswerLocked = true;
+                                  correctAnswer = model.correctAnswer;
+                                  selectedAnswer = model.options[index];
+                                });
+                              },
                               child: Container(
                                 width: double.infinity,
                                 height: 50,
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: foregroundColor, width: 3),
+                                        color: Colors.white, width: 3),
+                                    color:
+                                        //If Selected ans. is == to options then pass(?) foreground otherwise(:) bg color
+                                        selectedAnswer == model.options[index]
+                                            ? foregroundColor
+                                            : backgroundColor,
                                     borderRadius: BorderRadius.circular(10)),
                                 alignment: Alignment.centerLeft,
                                 padding: EdgeInsets.all(8),
                                 child: Text(
-                                  "A. Nagpur",
+                                  model.options[index],
                                   style: TextStyle(
-                                    color: foregroundColor,
+                                    color: Color.fromRGBO(255, 255, 255, 1),
                                     fontWeight: FontWeight.w600,
                                     fontSize: 20,
                                   ),
@@ -93,9 +115,7 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
           child: Text(
             "Next Question",
             style: TextStyle(
-                color: backgroundColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
       ),
