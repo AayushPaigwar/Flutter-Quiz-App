@@ -12,7 +12,7 @@ class StartQuizScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Start Quiz",
-          style: TextStyle(color: backgroundColor),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         backgroundColor: foregroundColor,
@@ -25,7 +25,7 @@ class StartQuizScreen extends StatelessWidget {
             Text(
               "Quiz App",
               style: TextStyle(
-                  color: foregroundColor,
+                  color: Colors.white,
                   fontSize: 50,
                   fontWeight: FontWeight.bold),
             ),
@@ -38,11 +38,13 @@ class StartQuizScreen extends StatelessWidget {
                     ),
                   );
                 },
-                style:
-                    ElevatedButton.styleFrom(backgroundColor: foregroundColor),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                 child: Text(
-                  "Let's Go!",
-                  style: TextStyle(color: backgroundColor),
+                  "Start",
+                  style: TextStyle(
+                      color: backgroundColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20),
                 ))
           ],
         ),

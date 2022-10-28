@@ -11,11 +11,16 @@ List<QuizQuestionModel> quizQuestion = [
     options: ["Nagpur", "Mumbai", "Goa", "Pune"],
   ),
   QuizQuestionModel(
-      question: "Question2 ",
-      correctAnswer: "2",
-      options: ["1", "2", "3", "4"]),
+      question: "What is the fullform of VPN ?",
+      correctAnswer: "Virtual Private Network",
+      options: [
+        "Virtual Profile Network",
+        "Virtual Private Network",
+        "Virtual Permanent Network",
+        "None of the above"
+      ]),
   QuizQuestionModel(
-      question: "Question3", correctAnswer: "1", options: ["1", "2", "3", "4"]),
+      question: "2+2", correctAnswer: "4", options: ["1", "2", "3", "4"]),
   QuizQuestionModel(
-      question: "Question4", correctAnswer: "3", options: ["1", "2", "3", "4"])
+      question: "2x4", correctAnswer: "8", options: ["2", "4", "6", "8"])
 ];

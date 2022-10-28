@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:quiz_app/const.dart';
 import 'package:quiz_app/quiz_question.dart';
+import 'package:quiz_app/result.dart';
 
 class PlayQuizScreen extends StatefulWidget {
   const PlayQuizScreen({Key? key}) : super(key: key);
@@ -10,6 +11,9 @@ class PlayQuizScreen extends StatefulWidget {
 }
 
 class _PlayQuizScreenState extends State<PlayQuizScreen> {
+  //To go-to next page
+  final PageController pageController = PageController();
+
   //To keep the selected answer hhighlighted
   bool isAnswerLocked = false;
 
@@ -36,10 +40,19 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
 
       //Question
       body: PageView.builder(
+          //Page-view for multile pages/slides
+          //To go-to next page
+          controller: pageController,
+
+          //Not to swipe to next quesiton/page
           physics: NeverScrollableScrollPhysics(),
+
+          //Number of pages/questions
           itemCount: quizQuestion.length,
           itemBuilder: (context, index) {
+            //to call the question model
             QuizQuestionModel model = quizQuestion[index];
+            //-
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(children: [
@@ -66,11 +79,12 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
                       (index) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: InkWell(
+                              //InkWell Provides on Tap function
                               onTap: () {
                                 // Set State used to get instant change from the user input
 
                                 setState(() {
-                                  isAnswerLocked = true;
+                                  isAnswerLocked = true; //to lock answer
                                   correctAnswer = model.correctAnswer;
                                   selectedAnswer = model.options[index];
                                 });
@@ -90,7 +104,7 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
                                 alignment: Alignment.centerLeft,
                                 padding: EdgeInsets.all(8),
                                 child: Text(
-                                  model.options[index],
+                                  model.options[index], //call option list
                                   style: TextStyle(
                                     color: Color.fromRGBO(255, 255, 255, 1),
                                     fontWeight: FontWeight.w600,
@@ -107,7 +121,36 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
 
       // Next question Button
       bottomNavigationBar: InkWell(
-        onTap: () {},
+        //InkWell Provides on Tap function
+        onTap: () {
+          if (isAnswerLocked) {
+            if (selectedAnswer == correctAnswer) {
+              correctAnswers++;
+            } else {
+              wrongAnswers++;
+            }
+
+            currentIndex++; //for navigating to next page
+
+            if (currentIndex != quizQuestion.length) {
+              selectedAnswer = "";
+              pageController.jumpToPage(currentIndex);
+            } else {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Result(
+                          correctAnswer: correctAnswers,
+                          wrongAnswer: wrongAnswers)),
+                  (route) => false);
+            }
+
+            print("Correct Answers= $correctAnswers");
+            print("Wrong Answer = $wrongAnswers");
+          } else {
+            (print("Please select option"));
+          }
+        },
         child: Container(
           height: 60,
           color: foregroundColor,
