@@ -28,56 +28,60 @@ class _PlayQuizScreenState extends State<PlayQuizScreen> {
       ),
 
       //Question
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          SizedBox(height: 20),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "1.What is the Capital of Maharashtra?",
-              style: TextStyle(
-                  color: foregroundColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.italic),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
+      body: PageView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: [
+                SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "1.What is the Capital of Maharashtra?",
+                    style: TextStyle(
+                        color: foregroundColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.italic),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
 
-          //Options of questions
-          Column(
-            children: List.generate(
-                4,
-                (index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: double.infinity,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: foregroundColor, width: 3),
-                              borderRadius: BorderRadius.circular(10)),
-                          alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                            "A. Nagpur",
-                            style: TextStyle(
-                              color: foregroundColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
+                //Options of questions
+                Column(
+                  children: List.generate(
+                      4,
+                      (index) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                width: double.infinity,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: foregroundColor, width: 3),
+                                    borderRadius: BorderRadius.circular(10)),
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.all(8),
+                                child: Text(
+                                  "A. Nagpur",
+                                  style: TextStyle(
+                                    color: foregroundColor,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                    )),
-          )
-        ]),
-      ),
+                          )),
+                )
+              ]),
+            );
+          }),
 
       // Next question Button
       bottomNavigationBar: InkWell(
